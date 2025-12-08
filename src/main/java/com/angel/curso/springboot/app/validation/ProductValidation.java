@@ -1,4 +1,4 @@
-package com.angel.curso.springboot.app.config;
+package com.angel.curso.springboot.app.validation;
 
 import com.angel.curso.springboot.app.entities.Product;
 import org.springframework.stereotype.Component;

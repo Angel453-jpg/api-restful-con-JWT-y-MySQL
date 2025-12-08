@@ -1,6 +1,5 @@
 package com.angel.curso.springboot.app.controllers;
 
-import com.angel.curso.springboot.app.config.ProductValidation;
 import com.angel.curso.springboot.app.entities.Product;
 import com.angel.curso.springboot.app.services.ProductService;
 import jakarta.validation.Valid;
@@ -19,11 +18,10 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductService service;
-    private final ProductValidation validation;
+//    private final ProductValidation validation;
 
-    public ProductController(ProductService service, ProductValidation validation) {
+    public ProductController(ProductService service) {
         this.service = service;
-        this.validation = validation;
     }
 
     @GetMapping
@@ -43,7 +41,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result) {
 
-        validation.validate(product, result);
+//        validation.validate(product, result);
 
         if (result.hasFieldErrors()) {
             return validation(result);
@@ -55,7 +53,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Product product, BindingResult result, @PathVariable Long id) {
 
-        validation.validate(product, result);
+//        validation.validate(product, result);
 
         Optional<Product> productOptional = service.update(id, product);
 

@@ -1,5 +1,7 @@
 package com.angel.curso.springboot.app.entities;
 
+import com.angel.curso.springboot.app.validation.IsExistDb;
+import com.angel.curso.springboot.app.validation.IsRequired;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -11,7 +13,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "{NotEmpty.product.name}")
+    @IsRequired(message = "{IsRequired.product.name}")
     @Size(min = 3, max = 20)
     private String name;
 
@@ -19,8 +21,12 @@ public class Product {
     @NotNull(message = "{NotNull.product.price}")
     private Integer price;
 
-    @NotBlank(message = "{NotBlank.product.description}")
+    @IsRequired
     private String description;
+
+    @IsExistDb
+    @IsRequired
+    private String sku;
 
     public Long getId() {
         return id;
@@ -52,5 +58,13 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }
