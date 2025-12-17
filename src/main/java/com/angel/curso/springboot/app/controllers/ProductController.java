@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(originPatterns = "*", origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -24,11 +25,13 @@ public class ProductController {
         this.service = service;
     }
 
+//    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     public List<Product> list() {
         return service.findAll();
     }
 
+//    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<?> view(@PathVariable Long id) {
         Optional<Product> productOptional = service.findById(id);
@@ -38,6 +41,7 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result) {
 
@@ -50,6 +54,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(product));
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Product product, BindingResult result, @PathVariable Long id) {
 
@@ -68,6 +73,7 @@ public class ProductController {
     }
 
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
 

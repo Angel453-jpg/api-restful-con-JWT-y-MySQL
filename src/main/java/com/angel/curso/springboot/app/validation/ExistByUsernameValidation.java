@@ -1,25 +1,24 @@
 package com.angel.curso.springboot.app.validation;
 
-import com.angel.curso.springboot.app.services.ProductService;
+import com.angel.curso.springboot.app.services.UserService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IsExistDbValidation implements ConstraintValidator<IsExistDb, String> {
+public class ExistByUsernameValidation implements ConstraintValidator<ExistsByUsername, String> {
 
     @Autowired
-    private ProductService service;
+    private UserService service;
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(String username, ConstraintValidatorContext context) {
 
         if (service == null) {
             return true;
         }
 
-        return !service.existsBySku(value);
+        return !service.existsByUsername(username);
     }
-
 }
